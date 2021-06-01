@@ -42,7 +42,7 @@ function Copyright(props: any) {
 
 const drawerWidth = 240;
 
-const useStyles = typeof window === "undefined" ? () => { } : makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
     },
@@ -236,7 +236,7 @@ function ListTable() {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <DataGrid loading={loading || !data} rows={rows} columns={columns} pageSize={20} />
+            <DataGrid loading={loading || !data} rows={rows} columns={columns} pageSize={20} pagination  />
         </div>
     );
 }
