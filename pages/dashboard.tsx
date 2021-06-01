@@ -174,7 +174,7 @@ function DashboardContent() {
                 }}
             >
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Container sx={{ mt: 4, mb: 4 }}>
                     <Grid container spacing={3}>
                         {/* Chart */}
                         <Grid item xs={12} md={8} lg={9}>
@@ -183,7 +183,7 @@ function DashboardContent() {
                                     p: 2,
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    height: 240,
+                                    height: '100%',
                                 }}
                             >
                                 <ListTable />

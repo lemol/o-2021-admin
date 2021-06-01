@@ -68,7 +68,7 @@ const typeDefs = `
 const resolvers = {
   Query: {
     async participants(_, args) {
-        let participants = db.collection(process.env.PARTICIPANTS_COLLECTION_PATH).orderBy("paymentDate");
+        let participants = db.collection(process.env.PARTICIPANTS_COLLECTION_PATH).offset(0); // .orderBy("paymentDate");
 
         const totalCount = (await participants.get()).docs.length;
 
