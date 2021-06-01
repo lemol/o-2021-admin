@@ -183,7 +183,7 @@ function DashboardContent() {
                                     p: 2,
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    height: '100%',
+                                    height: 512,
                                 }}
                             >
                                 <ListTable />
