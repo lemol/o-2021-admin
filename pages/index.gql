@@ -1,0 +1,11 @@
+query ParticipantsList($take: Int, $skip: Int) {
+    participants(take: $take, skip: $skip) {
+        totalCount
+        items {
+            name,
+            email,
+            code,
+            paymentDate
+        }
+    }
+}
