@@ -32,7 +32,7 @@ export default function ListTable() {
       <FormHelperText>{participant.name}</FormHelperText>
       <Typography color={"textSecondary"}>Comprovativo:</Typography>
       <FormHelperText>
-        {participant.paymentProofUrl && <NextLink href={participant.paymentProofUrl}>Ver</NextLink>}
+        {participant.paymentProofUrl && <NextLink href={participant.paymentProofUrl}>[Visualizar]</NextLink>}
       </FormHelperText>
     </div>
   );
