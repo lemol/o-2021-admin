@@ -25,6 +25,7 @@ const db = admin.firestore();
 const typeDefs = `
   type Query {
     participants(take: Int, skip: Int): ParticipantListResult!
+    participant(code: String!): Participant
   }
 
   type ParticipantListResult {
@@ -61,32 +62,56 @@ const typeDefs = `
     paymentProofUrl: String
     paymentDate: String
     subscribeDate: String
+    # congressPaymentInfo: [PaymentInfo!]!
   }
+
+  #type PaymentInfo {
+  #  audienceTypeId: Int
+  #  audienceTypeString: String!
+  #  dateString: String
+  #  priceAoa: Int
+  #  priceUsd: Int
+  #}
 `;
 
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     async participants(_, args) {
-        let participants = db.collection(process.env.PARTICIPANTS_COLLECTION_PATH).offset(0); // .orderBy("paymentDate");
+      let participants = db
+        .collection(process.env.PARTICIPANTS_COLLECTION_PATH)
+        .offset(0); // .orderBy("paymentDate");
 
-        const totalCount = (await participants.get()).docs.length;
+      const totalCount = (await participants.get()).docs.length;
 
-        if (args.skip) {
-            participants = participants.offset(args.skip);
-        }
-        
-        if (args.take) {
-            participants = participants.limit(args.take);
-        }
+      if (args.skip) {
+        participants = participants.offset(args.skip);
+      }
 
-        const data = await participants.get();
+      if (args.take) {
+        participants = participants.limit(args.take);
+      }
 
-        return {
-            totalCount,
-            items: data.docs.map(x => mapParticipant(x.data())),
-        }
-    }
+      const data = await participants.get();
+
+      return {
+        totalCount,
+        items: data.docs.map((x) => mapParticipant(x.data())),
+      };
+    },
+    async participant(_, { code }) {
+      let participants = db
+        .collection(process.env.PARTICIPANTS_COLLECTION_PATH)
+        .where("code", "==", code); // .orderBy("paymentDate");
+
+      const data = await participants.get();
+
+      if (data.empty) {
+        return null;
+      }
+
+      return mapParticipant(data.docs[0].data());
+    },
   },
 };
 
@@ -106,24 +131,24 @@ const server = new ApolloServer({
 export default server.createHandler();
 
 function mapParticipant(dbParticipant) {
-    return {
-        ...dbParticipant,
-        ...(dbParticipant.PersonalInfo ?? {}),
-        ...(dbParticipant.EmploymentInfo ?? {}),
-        ...(dbParticipant.AcademicInfo ?? {}),
-        ...(dbParticipant.JobInfo ?? {}),
-        ...(dbParticipant.SchoolInfo ?? {}),
-        ...(dbParticipant.ScheduleInfo ?? {}),
-        ...(dbParticipant.AudienceType ?? {}),
-        ...(dbParticipant.PreCongressCourse ?? {}),
-        ...(dbParticipant.PreCongressCourseSelection ?? {}),
-        ...(dbParticipant.OnlineSeminar ?? {}),
-        ...(dbParticipant.PaymentInfo ?? {}),
-        ...(dbParticipant.PaymentMethod ?? {}),
-        ...(dbParticipant.PaymentCurrency ?? {}),
-        ...(dbParticipant.CheckoutInfo ?? {}),
-        ...(dbParticipant.PayNow ?? {}),
-        ...(dbParticipant.PayAfter ?? {}),
-        ...(dbParticipant.PaySuccess ?? {}),
-    };
+  return {
+    ...dbParticipant,
+    ...(dbParticipant.PersonalInfo ?? {}),
+    ...(dbParticipant.EmploymentInfo ?? {}),
+    ...(dbParticipant.AcademicInfo ?? {}),
+    ...(dbParticipant.JobInfo ?? {}),
+    ...(dbParticipant.SchoolInfo ?? {}),
+    ...(dbParticipant.ScheduleInfo ?? {}),
+    ...(dbParticipant.AudienceType ?? {}),
+    ...(dbParticipant.PreCongressCourse ?? {}),
+    ...(dbParticipant.PreCongressCourseSelection ?? {}),
+    ...(dbParticipant.OnlineSeminar ?? {}),
+    ...(dbParticipant.PaymentInfo ?? {}),
+    ...(dbParticipant.PaymentMethod ?? {}),
+    ...(dbParticipant.PaymentCurrency ?? {}),
+    ...(dbParticipant.CheckoutInfo ?? {}),
+    ...(dbParticipant.PayNow ?? {}),
+    ...(dbParticipant.PayAfter ?? {}),
+    ...(dbParticipant.PaySuccess ?? {}),
+  };
 }

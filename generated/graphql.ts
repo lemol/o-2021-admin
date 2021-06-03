@@ -63,12 +63,18 @@ export type ParticipantListResult = {
 export type Query = {
   __typename?: 'Query';
   participants: ParticipantListResult;
+  participant?: Maybe<Participant>;
 };
 
 
 export type QueryParticipantsArgs = {
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryParticipantArgs = {
+  code: Scalars['String'];
 };
 
 
@@ -85,9 +91,22 @@ export type ParticipantsListQuery = (
     & Pick<ParticipantListResult, 'totalCount'>
     & { items: Array<(
       { __typename?: 'Participant' }
-      & Pick<Participant, 'name' | 'email' | 'code' | 'paymentDate'>
+      & Pick<Participant, 'name' | 'email' | 'whatsapp' | 'startDate' | 'professionalStatus' | 'academicField' | 'academicDegree' | 'profession' | 'speciality' | 'workLocation' | 'jobTitle' | 'university' | 'grade' | 'dates' | 'dayOneAudienceType' | 'dayTwoAudienceType' | 'pcWillAttend' | 'pcDaysToAttend' | 'pcDayOneCourse' | 'pcDayTwoCourse' | 'osWillAttend' | 'paymentCurrency' | 'paymentMethod' | 'whenToPay' | 'code' | 'paymentProofUrl' | 'paymentDate' | 'subscribeDate'>
     )> }
   ) }
+);
+
+export type ParticipantQueryVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type ParticipantQuery = (
+  { __typename?: 'Query' }
+  & { participant?: Maybe<(
+    { __typename?: 'Participant' }
+    & Pick<Participant, 'name' | 'email' | 'whatsapp' | 'startDate' | 'professionalStatus' | 'academicField' | 'academicDegree' | 'profession' | 'speciality' | 'workLocation' | 'jobTitle' | 'university' | 'grade' | 'dates' | 'dayOneAudienceType' | 'dayTwoAudienceType' | 'pcWillAttend' | 'pcDaysToAttend' | 'pcDayOneCourse' | 'pcDayTwoCourse' | 'osWillAttend' | 'paymentCurrency' | 'paymentMethod' | 'whenToPay' | 'code' | 'paymentProofUrl' | 'paymentDate' | 'subscribeDate'>
+  )> }
 );
 
 
@@ -98,8 +117,32 @@ export const ParticipantsListDocument = gql`
     items {
       name
       email
+      whatsapp
+      startDate
+      professionalStatus
+      academicField
+      academicDegree
+      profession
+      speciality
+      workLocation
+      jobTitle
+      university
+      grade
+      dates
+      dayOneAudienceType
+      dayTwoAudienceType
+      pcWillAttend
+      pcDaysToAttend
+      pcDayOneCourse
+      pcDayTwoCourse
+      osWillAttend
+      paymentCurrency
+      paymentMethod
+      whenToPay
       code
+      paymentProofUrl
       paymentDate
+      subscribeDate
     }
   }
 }
@@ -133,8 +176,71 @@ export function useParticipantsListLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ParticipantsListQueryHookResult = ReturnType<typeof useParticipantsListQuery>;
 export type ParticipantsListLazyQueryHookResult = ReturnType<typeof useParticipantsListLazyQuery>;
 export type ParticipantsListQueryResult = Apollo.QueryResult<ParticipantsListQuery, ParticipantsListQueryVariables>;
+export const ParticipantDocument = gql`
+    query Participant($code: String!) {
+  participant(code: $code) {
+    name
+    email
+    whatsapp
+    startDate
+    professionalStatus
+    academicField
+    academicDegree
+    profession
+    speciality
+    workLocation
+    jobTitle
+    university
+    grade
+    dates
+    dayOneAudienceType
+    dayTwoAudienceType
+    pcWillAttend
+    pcDaysToAttend
+    pcDayOneCourse
+    pcDayTwoCourse
+    osWillAttend
+    paymentCurrency
+    paymentMethod
+    whenToPay
+    code
+    paymentProofUrl
+    paymentDate
+    subscribeDate
+  }
+}
+    `;
+
+/**
+ * __useParticipantQuery__
+ *
+ * To run a query within a React component, call `useParticipantQuery` and pass it any options that fit your needs.
+ * When your component renders, `useParticipantQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useParticipantQuery({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useParticipantQuery(baseOptions: Apollo.QueryHookOptions<ParticipantQuery, ParticipantQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ParticipantQuery, ParticipantQueryVariables>(ParticipantDocument, options);
+      }
+export function useParticipantLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ParticipantQuery, ParticipantQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ParticipantQuery, ParticipantQueryVariables>(ParticipantDocument, options);
+        }
+export type ParticipantQueryHookResult = ReturnType<typeof useParticipantQuery>;
+export type ParticipantLazyQueryHookResult = ReturnType<typeof useParticipantLazyQuery>;
+export type ParticipantQueryResult = Apollo.QueryResult<ParticipantQuery, ParticipantQueryVariables>;
 export const namedOperations = {
   Query: {
-    ParticipantsList: 'ParticipantsList'
+    ParticipantsList: 'ParticipantsList',
+    Participant: 'Participant'
   }
 }

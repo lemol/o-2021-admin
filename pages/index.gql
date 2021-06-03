@@ -1,11 +1,68 @@
 query ParticipantsList($take: Int, $skip: Int) {
-    participants(take: $take, skip: $skip) {
-        totalCount
-        items {
-            name,
-            email,
-            code,
-            paymentDate
-        }
+  participants(take: $take, skip: $skip) {
+    totalCount
+    items {
+      name
+      email
+      whatsapp
+      startDate
+      professionalStatus
+      academicField
+      academicDegree
+      profession
+      speciality
+      workLocation
+      jobTitle
+      university
+      grade
+      dates
+      dayOneAudienceType
+      dayTwoAudienceType
+      pcWillAttend
+      pcDaysToAttend
+      pcDayOneCourse
+      pcDayTwoCourse
+      osWillAttend
+      paymentCurrency
+      paymentMethod
+      whenToPay
+      code
+      paymentProofUrl
+      paymentDate
+      subscribeDate
     }
+  }
+}
+
+query Participant($code: String!) {
+  participant(code: $code) {
+    name
+    email
+    whatsapp
+    startDate
+    professionalStatus
+    academicField
+    academicDegree
+    profession
+    speciality
+    workLocation
+    jobTitle
+    university
+    grade
+    dates
+    dayOneAudienceType
+    dayTwoAudienceType
+    pcWillAttend
+    pcDaysToAttend
+    pcDayOneCourse
+    pcDayTwoCourse
+    osWillAttend
+    paymentCurrency
+    paymentMethod
+    whenToPay
+    code
+    paymentProofUrl
+    paymentDate
+    subscribeDate
+  }
 }
