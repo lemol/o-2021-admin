@@ -17,6 +17,15 @@ export type Scalars = {
 };
 
 
+/**
+ * type PaymentInfo {
+ *   audienceTypeId: Int
+ *   audienceTypeString: String!
+ *   dateString: String
+ *   priceAoa: Int
+ *   priceUsd: Int
+ * }
+ */
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
@@ -46,6 +55,7 @@ export type Participant = {
   pcDayTwoCourse?: Maybe<Scalars['Int']>;
   osWillAttend?: Maybe<Scalars['Int']>;
   paymentCurrency?: Maybe<Scalars['String']>;
+  paymentTotal?: Maybe<Scalars['Float']>;
   paymentMethod?: Maybe<Scalars['String']>;
   whenToPay?: Maybe<Scalars['Int']>;
   code?: Maybe<Scalars['String']>;
@@ -105,7 +115,7 @@ export type ParticipantQuery = (
   { __typename?: 'Query' }
   & { participant?: Maybe<(
     { __typename?: 'Participant' }
-    & Pick<Participant, 'name' | 'email' | 'whatsapp' | 'startDate' | 'professionalStatus' | 'academicField' | 'academicDegree' | 'profession' | 'speciality' | 'workLocation' | 'jobTitle' | 'university' | 'grade' | 'dates' | 'dayOneAudienceType' | 'dayTwoAudienceType' | 'pcWillAttend' | 'pcDaysToAttend' | 'pcDayOneCourse' | 'pcDayTwoCourse' | 'osWillAttend' | 'paymentCurrency' | 'paymentMethod' | 'whenToPay' | 'code' | 'paymentProofUrl' | 'paymentDate' | 'subscribeDate'>
+    & Pick<Participant, 'name' | 'email' | 'whatsapp' | 'startDate' | 'professionalStatus' | 'academicField' | 'academicDegree' | 'profession' | 'speciality' | 'workLocation' | 'jobTitle' | 'university' | 'grade' | 'dates' | 'dayOneAudienceType' | 'dayTwoAudienceType' | 'pcWillAttend' | 'pcDaysToAttend' | 'pcDayOneCourse' | 'pcDayTwoCourse' | 'osWillAttend' | 'paymentCurrency' | 'paymentTotal' | 'paymentMethod' | 'whenToPay' | 'code' | 'paymentProofUrl' | 'paymentDate' | 'subscribeDate'>
   )> }
 );
 
@@ -201,6 +211,7 @@ export const ParticipantDocument = gql`
     pcDayTwoCourse
     osWillAttend
     paymentCurrency
+    paymentTotal
     paymentMethod
     whenToPay
     code

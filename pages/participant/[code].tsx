@@ -215,7 +215,7 @@ const yesNoList = [
 function OnlineSeminar({ participant }) {
   return (
     <Block>
-      {participant.pcDaysToAttend && (
+      {participant.osWillAttend && (
         <Field
           title="Seminário Online:"
           value={getText(yesNoList, participant.osWillAttend)}
@@ -233,10 +233,10 @@ const currencyList = [
 function PaymentCurrency({ participant }) {
   return (
     <Block>
-      {participant.pcDaysToAttend && (
+      {participant.paymentCurrency && (
         <Field
-          title="Moeda de pagamento:"
-          value={participant.paymentCurrency}
+          title="Valor a pagar:"
+          value={Intl.NumberFormat("pt-PT").format(participant.paymentTotal) + " " + participant.paymentCurrency}
         />
       )}
     </Block>

@@ -56,6 +56,7 @@ const typeDefs = `
     pcDayTwoCourse: Int
     osWillAttend: Int
     paymentCurrency: String
+    paymentTotal: Float
     paymentMethod: String
     whenToPay: Int
     code: String
@@ -131,6 +132,9 @@ const server = new ApolloServer({
 export default server.createHandler();
 
 function mapParticipant(dbParticipant) {
+  const currency = dbParticipant.PaymentCurrency?.paymentCurrency?.toLowerCase();
+  const paymentTotal = dbParticipant.PaymentInfo?.total?.price?.[["aoa", "akz"].includes(currency)?"aoa":"usd"];
+
   return {
     ...dbParticipant,
     ...(dbParticipant.PersonalInfo ?? {}),
@@ -150,5 +154,6 @@ function mapParticipant(dbParticipant) {
     ...(dbParticipant.PayNow ?? {}),
     ...(dbParticipant.PayAfter ?? {}),
     ...(dbParticipant.PaySuccess ?? {}),
+    paymentTotal,
   };
 }

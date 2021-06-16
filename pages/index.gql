@@ -58,6 +58,7 @@ query Participant($code: String!) {
     pcDayTwoCourse
     osWillAttend
     paymentCurrency
+    paymentTotal
     paymentMethod
     whenToPay
     code
