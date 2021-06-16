@@ -138,6 +138,7 @@ function mapParticipant(dbParticipant) {
   const pcDayOneCourse = dbParticipant.PreCongressCourseSelection?.dayOneCourse;
   const pcDayTwoCourse = dbParticipant.PreCongressCourseSelection?.dayTwoCourse;
   const pcDaysToAttend = dbParticipant.PreCongressCourse?.daysToAttend;
+  const osWillAttend = dbParticipant.OnlineSeminar?.willAttend;
 
   return {
     ...dbParticipant,
@@ -162,5 +163,6 @@ function mapParticipant(dbParticipant) {
     pcDayOneCourse,
     pcDayTwoCourse,
     pcDaysToAttend,
+    osWillAttend,
   };
 }
