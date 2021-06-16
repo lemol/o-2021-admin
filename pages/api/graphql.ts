@@ -135,6 +135,10 @@ function mapParticipant(dbParticipant) {
   const currency = dbParticipant.PaymentCurrency?.paymentCurrency?.toLowerCase();
   const paymentTotal = dbParticipant.PaymentInfo?.total?.price?.[["aoa", "akz"].includes(currency)?"aoa":"usd"];
 
+  const pcDayOneCourse = dbParticipant.PreCongressCourseSelection?.dayOneCourse;
+  const pcDayTwoCourse = dbParticipant.PreCongressCourseSelection?.dayTwoCourse;
+  const pcDaysToAttend = dbParticipant.PreCongressCourse?.daysToAttend;
+
   return {
     ...dbParticipant,
     ...(dbParticipant.PersonalInfo ?? {}),
@@ -155,5 +159,8 @@ function mapParticipant(dbParticipant) {
     ...(dbParticipant.PayAfter ?? {}),
     ...(dbParticipant.PaySuccess ?? {}),
     paymentTotal,
+    pcDayOneCourse,
+    pcDayTwoCourse,
+    pcDaysToAttend,
   };
 }

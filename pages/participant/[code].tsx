@@ -198,7 +198,7 @@ function PreCongressCourse({ participant }) {
       {participant.pcDaysToAttend && (
         <Field
           title="Dias em que irá participar (Pré-congresso):"
-          value={getText(datesList, participant.pcDaysToAttend)}
+          value={getText(daysToAttendList, participant.pcDaysToAttend)}
         />
       )}
       {day1Course && <Field title="Curso para o 1º dia:" value={day1Course} />}
